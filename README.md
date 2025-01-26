@@ -12,12 +12,12 @@
 
 
 Notlar:
-community sayfası
-feedback/öneri sayfası
-not düzenleme sayfası
+community sayfası,
+feedback/öneri sayfası,
+not düzenleme sayfası,
 
-side barda notlara yada pomodoroya hızlı erişim
-navbarda pomodoro süresini her sayfada göstermek
-hava durumu şeyi
-geliştirme sayfası
+side barda notlara yada pomodoroya hızlı erişim,
+navbarda pomodoro süresini her sayfada göstermek,
+hava durumu şeyi,
+geliştirme sayfası,
 login/register işlemleri
