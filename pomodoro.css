@@ -1,0 +1,1128 @@
+/* GENERAL FEATURES */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    z-index: 1000; /* Navbar'ın üstte kalması için */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --------------------------------------------  */
+
+
+
+
+
+
+
+/* ----DARK MODE AND SHOOTING STARS---- */
+.night {
+    display: none; 
+}
+
+body.dark-mode .night {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; 
+    overflow: hidden;
+}
+
+.shooting_star {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(-45deg, white, rgba(255, 255, 255, 0));
+    top: -100px;
+    right: -100px;
+    transform: rotate(-45deg);
+    animation: shooting 2s linear infinite;
+    opacity: 0;
+}
+
+@keyframes shooting {
+    0% {
+        opacity: 0;
+        transform: translate(-100px, -100px) rotate(-45deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100vw, 100vh) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* --------------------------------------------  */
+
+
+
+
+
+
+/* ----PANELS---- */
+/* PANELS GENERAL FEATURES */
+#panel-container {
+    display: flex; 
+    width: 90%;
+    max-width: 1200px;
+    height: 70vh; 
+    margin: auto; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    gap: 10px;
+}
+
+/* Panels */
+.p-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(206, 206, 206, 0.059);
+    color: white;
+    cursor: pointer;
+    border: 1px solid #383838;
+    transition: flex 0.6s ease-in-out, background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Closed panel  */
+.p-panel::before {
+    content: attr(data-title); 
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1; 
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Active Panel */
+.p-panel.active {
+    flex: 23; 
+    background-color: rgba(206, 206, 206, 0.059);
+    z-index: 2;
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+}
+
+.p-panel:not(.active)::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.p-panel.active::before {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Hover for other panels */
+.p-panel:not(.active):hover {
+    background-color: rgba(101, 101, 101, 0.338);
+}
+
+
+/* Panel tags */
+.panel-label {
+    position: absolute;
+    bottom: 250px;
+    left: 50%; 
+    transform: translateX(-50%) rotate(-90deg); 
+    font-size: 1rem;
+    font-weight: bold;
+    color: gray; 
+    opacity: 0.7; 
+    text-transform: uppercase; 
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2; 
+}
+
+.p-panel:not(.active) .panel-label {
+    opacity: 1;
+    visibility: visible;
+}
+
+.p-panel.active .panel-label {
+    opacity: 0; 
+    visibility: hidden;
+}
+
+
+/* --------------------------------------------  */
+
+
+
+/* ----PANEL 1 : MUSIC PANEL---- */
+.music-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* hide content for closed panel */
+.p-panel:not(.active) .music-content {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* show content for active panel */
+.p-panel.active .music-content {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; 
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Panel sections */
+.music-left-section {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 10px;
+    background-color: transparent; 
+    border-right: 2px solid #ccc; 
+}
+
+.music-right-section {
+    flex: 39; 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px; 
+}
+
+/* right top section Stills */
+.music-right-top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: transparent; 
+    color: white;
+    border-bottom: 2px solid #ccc;
+}
+
+
+.music-name-section, .music-rhythm-section, .music-buttons-section, .music-progress-bar-section{
+    flex:1;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    min-height: 30px;
+}
+
+
+.music-name-section{
+    color: gray; 
+    font-size: 24px; 
+    text-align: center; 
+    font-weight: normal;
+}
+
+.music-progress-bar-progress-section{
+    flex:4;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.music-progress-bar-sound-section{
+    flex:1;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+
+
+
+
+
+.control-btn {
+    flex: none; 
+    padding: 8px 30px; 
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+}
+
+
+
+/* Dark mode features*/
+body.dark-mode .control-btn {
+    color: white; 
+}
+
+body.dark-mode .control-btn:hover {
+    color: #e0e0e0; 
+}
+
+
+.progress-bar {
+    flex-grow: 1;
+    height: 6px;
+    background-color: #666;
+    position: relative;
+    cursor: pointer;
+    min-width: 100px; 
+    margin: 0 10px; 
+}
+
+.progress {
+    height: 100%;
+    background-color: #137661;
+    position: absolute;
+    width: 0; 
+}
+
+.volume-slider {
+    flex: 1; 
+    min-width: 20px;
+}
+
+.time {
+    width: 50px; 
+    text-align: center;
+}
+
+.volume-controls i {
+    padding: 0 10px;
+}
+
+/* Bootstrap Icons */
+.bi {
+    font-size: 24px;
+    color: #555;
+}
+
+
+
+
+/* Playlist Container */
+.music-right-bot-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: transparent; 
+    border-top: 1px solid #ccc;
+    height: 370px; 
+}
+
+/* Playlist List Items */
+#playlist {
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Playlist List Items */
+#playlist li {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    background-color: transparent;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    position: relative; 
+    overflow: hidden; 
+}
+
+#playlist li::before {
+    content: ''; 
+    position: absolute; 
+    top: 1px; left: 1px; right: 1px; bottom: 1px; 
+    border: 2px solid #ccc;
+    border-radius: 4px; 
+    opacity: 0;
+    transition: opacity 0.3s; 
+    z-index: -1;
+}
+
+#playlist li:hover::before {
+    opacity: 1; 
+}
+
+
+
+
+
+#playlist li span {
+    flex-grow: 1;
+    margin-right: 10px; 
+    color: gray;
+}
+
+
+#playlist li i, #playlist li button {
+    margin-right: 20px; 
+}
+
+
+.fas.fa-copy, .fas.fa-external-link-alt {
+    cursor: pointer;
+    color: gray;
+}
+
+.fas.fa-copy:hover, .fas.fa-external-link-alt:hover {
+    color: #007BFF;
+}
+
+/* Playlist Link */
+#playlist a {
+    text-decoration: none; 
+    color: #333; 
+    font-weight: bold; 
+}
+
+/* Play Button */
+#playlist a:hover {
+    color: #007BFF; 
+}
+
+/* Delete Button */
+#playlist button {
+    color: gray;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer; 
+    background-color: transparent;
+}
+
+#playlist button:hover {
+    color: red;
+    background-color: transparent;
+}
+
+
+/* YOUTUBE IFRAME API */
+
+#youtube-player {
+    display: none;
+    margin: auto;
+    width: 640px; 
+    height: 390px; 
+    background-color: black; 
+}
+
+
+
+
+
+
+/* music add */
+#add-music-section {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20%;
+}
+
+
+#addMusicForm {
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+#addMusicForm input[type="text"],
+#addMusicForm input[type="url"] {
+    padding: 10px;
+    border: 2px solid #ccc; 
+    border-radius: 5px;
+    font-size: 16px; 
+    min-width: 100px; 
+}
+
+#addMusicForm button {
+    padding: 10px;
+    background-color: #137661; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    min-width: 100px; 
+}
+
+#addMusicForm button:hover {
+    background-color: #137661; 
+}
+
+
+
+/* --------------------------------------------  */
+
+
+
+
+
+
+
+/* ----PANEL 2 : HISTORY PANEL---- */
+
+/* History Container */
+#history-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 15px;
+    gap: 15px;
+    background-color: transparent;
+    height: 100%; 
+    width: 100%; 
+    max-height: 500px; 
+    overflow-y: auto; 
+    margin: 0 auto; 
+    box-sizing: border-box;
+    scrollbar-width: thin; 
+    scrollbar-color: gray transparent;
+}
+
+/* history  */
+.history-date {
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+    font-weight: bold;
+    margin: 10px 0;
+    position: relative;
+    width: 100%;
+}
+
+.history-date::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 50px;
+    height: 1px;
+    background-color: gray;
+    transform: translateX(-50%);
+}
+
+.history-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; 
+    max-width: 100%; 
+    padding: 15px 100px; 
+    background: transparent;
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    word-wrap: break-word; 
+}
+
+/* time Stil */
+.history-message-time {
+    padding-left: 10px; 
+    padding-right: 10px; 
+    font-size: 14px;
+    color: gray; 
+    text-align: center; 
+    min-width: 50px;
+}
+
+
+
+/* Hover */
+.history-message:hover {
+    background-color: rgba(211, 211, 211, 0.2);
+}
+
+/* Scrollbar Still for safari) */
+#history-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#history-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#history-container::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+
+/* --------------------------------------------  */
+
+
+
+
+
+/* ----PANEL 3 : POMODORO PANEL---- */
+
+.pomodoro-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+
+#pomodoro-p-panel {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(206, 206, 206, 0.059);
+    border: 1px solid #383838;
+    border-radius: 10px;
+    text-align: center;
+    height: 100%; 
+    width: 100%; 
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Panel sect*/
+.pomodoro-mode-section {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto; 
+    padding: 10px;
+    background-color: transparent;
+    border-right: 2px solid #ccc;
+}
+
+/* Countdown ve Stopwatch Buttons circular still */
+.pomodoro-mode-section button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid #137661; 
+    background-color: #fff; 
+    font-size: 15px;
+    color: #137661; 
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    border-right: 2px solid #ccc;
+}
+
+/* Hover  */
+.pomodoro-mode-section button:hover {
+    background-color: #137661; 
+    color: #fff;
+}
+
+/* for Countdown ve Stopwatch */
+.pomodoro-mode-section button i {
+    font-size: 15px; 
+}
+
+
+
+
+
+
+.pomodoro-mode-pomodoro-section{
+    flex:1;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.pomodoro-mode-countdown-section{
+    flex:1;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.pomodoro-mode-stopwatch-section{
+    flex:1;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+
+.pomodoro-content-section {
+    flex: 39; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto; 
+    background-color: transparent;
+}
+
+
+
+
+/* Hover  */
+#pomodoro-p-panel:not(.active):hover {
+    background-color: rgba(101, 101, 101, 0.338); 
+    transform: scale(1.02); 
+}
+
+/* (plant and timer) */
+#pomodoro-p-panel #left-section {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+    transition: transform 0.5s ease, justify-content 0.5s ease; 
+    position: relative;
+}
+
+#pomodoro-p-panel.right-section-visible #left-section {
+    transform: translateX(-60%); 
+    align-items: center; 
+    justify-content: center; 
+}
+
+
+#pomodoro-p-panel #circular-timer {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba(224, 255, 224, 0.3);
+    margin: 0 auto; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* plant stage */
+#pomodoro-p-panel #plant-stage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+#timer-display {
+    font-size: 40px; 
+    color: gray; 
+    font-weight: bold; 
+    text-align: center; 
+    margin-top: 10px; 
+}
+
+
+
+#start-button,
+#stop-button {
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    background-color: #137661; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#start-button:hover,
+#stop-button:hover {
+    background-color: #0d574b; 
+}
+
+/* Align the buttons and other content in the left section */
+#left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; 
+}
+
+
+
+
+
+/* settings */
+#pomodoro-p-panel #right-section {
+    flex: 0; 
+    position: absolute;
+    top: 50%; 
+    right: 0; 
+    transform: translateY(-50%); 
+    width: 0; 
+    height: 80%; 
+    border-left: 1px solid #ccc; 
+    transition: all 0.5s ease; 
+    opacity: 0; 
+    overflow: hidden; 
+    z-index: 5; 
+}
+
+#pomodoro-p-panel.right-section-visible #right-section {
+    flex: 0.3; 
+    width: 40%; 
+    opacity: 1; 
+    overflow: visible; 
+}
+
+#pomodoro-p-panel #toggle-settings {
+    position: absolute;
+    right: -20%; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    padding: 10px;
+    background-color: rgba(76, 175, 80, 0.4);
+
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#pomodoro-p-panel #toggle-settings:hover {
+    background-color: #45a049;
+}
+
+/* hide content closed panel */
+.p-panel:not(.active) > * {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* show content active panel */
+.p-panel.active > * {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; 
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* settings: common features */
+#pomodoro-settings,
+#countdown-settings,
+#stopwatch-settings {
+    display: none;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    height: 100%; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+/* Pomodoro settings */
+#pomodoro-settings p,
+#countdown-settings p,
+#stopwatch-settings p {
+    margin-bottom: 10px; 
+    font-size: 16px; 
+    text-align: center; 
+}
+
+#pomodoro-settings input,
+#countdown-settings input {
+    width: 80%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+/* Button design*/
+#pomodoro-settings button,
+#countdown-settings button,
+#stopwatch-settings button {
+    width: 50%; 
+    padding: 10px; 
+    margin-top: 20px; 
+    background-color: #137661;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+#pomodoro-settings button:hover,
+#countdown-settings button:hover,
+#stopwatch-settings button:hover {
+    background-color: #0d574b; 
+}
+
+/* Active settings section */
+#pomodoro-settings.active,
+#countdown-settings.active,
+#stopwatch-settings.active {
+    display: flex; 
+}
+
+
+#apply-settings {
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    background-color: #137661; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#apply-settings:hover {
+    background-color: #0d574b; 
+}
+
+/* Align apply button and other content in the right section */
+#right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    gap: 20px;
+}
+
+
+
+
+
+/* MODE BUTTONS*/
+
+.pomodoro-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    border: 2px solid #ff4500; 
+    background-color: transparent; 
+    font-size: 14px; 
+    font-weight: bold; 
+    color: #ff4500; 
+    cursor: pointer;
+    text-align: center;
+}
+
+.pomodoro-symbol:hover {
+    background-color: #ff4500;
+    color: #fff; 
+}
+
+.mode-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+    border: 2px solid #007bff; 
+    background-color: #fff;
+    font-size: 18px; 
+    color: #007bff; 
+    cursor: pointer;
+    transition: all 0.3s ease; 
+}
+
+.mode-button:hover {
+    background-color: #007bff; 
+    color: #fff; 
+}
+
+.mode-button span {
+    font-weight: bold;
+}
+
+.mode-button i {
+    font-size: 24px; 
+}
+
+
+/* --------------------------------------------  */
+
+
+
+
+
+
+/* ----PANEL 4 : PLANT SETTINGS PANEL---- */
+
+.plant-settings-content {
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    height: 100%;
+}
+
+/* Plants Panel General Styles */
+#plant-settings-p-panel .p-panel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    text-align: center;
+    color: gray;
+}
+
+/* Title Style */
+.panel-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #137661; 
+    margin-bottom: 30px;
+}
+
+/* Plant List Container */
+.plant-list {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center;
+    gap: 40px; 
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 10px; 
+    background-color: rgba(0, 0, 0, 0.03); 
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Plant List Item */
+.plant-list-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Plant Image in a Circle */
+.plant-image-circle {
+    width: 90px; 
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #137661; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.plant-image-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Plant Name */
+.plant-name {
+    font-size: 30px; 
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+}
+
+/* Footer Style */
+.plant-footer {
+    margin-top: 30px;
+    font-size: 40px;
+    color: gray;
+}
+
+
+/* --------------------------------------------  */
+
+
+/* ----PANEL 5 : COLLECTION PANEL---- */
+
+.collection-content {
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------------------------------  */
+
+
+/* ----PANEL 6 : HORIZONS PANEL---- */
+
+.horizons-content {
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------------------------------  */
+
+
+/* ----PANEL 7 : WORLDS PANEL---- */
+
+.worlds-content {
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------------------------------  */
