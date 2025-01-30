@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/general/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/general/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/general/favicon-16x16.png">
+    <title>Feedback</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+
+<!-- STARS-->
+
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+
+
+<!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="index.html">
+            <img id="logo" src="img/general/logoblack.png" alt="Logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Pomodoro</a></li>
+                <li class="nav-item"><a class="nav-link" href="plan.html">Plan</a></li>
+                <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+                <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+            </ul>
+            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">🎨</button>
+            
+        </div>
+    </nav>
+
+<!-- CONTENT-->
+
+<div class="feedback-container">
+    <h2>Geri Bildirim Gönder</h2>
+    <form id="feedback-form">
+        <label for="username">İsminiz:</label>
+        <input type="text" id="username" name="username" placeholder="Adınızı girin..." required>
+
+        <label for="title">Başlık:</label>
+        <input type="text" id="title" name="title" placeholder="Geri bildiriminizin başlığı..." required>
+
+        <label for="message">Mesajınız:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Geri bildiriminizi yazın..." required></textarea>
+
+        <button type="submit">Gönder</button>
+    </form>
+
+    <h3>Geri Bildirimler</h3>
+    <div id="feedback-list"></div>
+</div>
+
+<script src="feedback.js"></script>
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

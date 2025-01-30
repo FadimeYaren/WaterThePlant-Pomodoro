@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/general/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/general/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/general/favicon-16x16.png">
+    <title>Community</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="community.css">
+
+</head>
+<body>
+
+<!-- STARS-->
+
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+
+
+<!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="index.html">
+            <img id="logo" src="img/general/logoblack.png" alt="Logo" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Pomodoro</a></li>
+                <li class="nav-item"><a class="nav-link" href="plan.html">Plan</a></li>
+                <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+                <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+            </ul>
+            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">🎨</button>
+            
+        </div>
+    </nav>
+
+
+<!-- CONTENT -->
+<!-- Üst Kısım (Sayfa Yolu - Breadcrumb) -->
+<div class="header">
+    <span class="breadcrumb">
+        <a href="community.html">Forum</a> → <span id="current-thread">Ana Sayfa</span>
+    </span>
+</div>
+
+<!-- Alt Kısım (Ana İçerik - 2 Sütun) -->
+<div class="container">
+
+    <!-- Sol Sütun: Forum Konuları / Yorumlar -->
+    <div class="left-section">
+        <h3>Forum Konuları</h3>
+        <div id="threads" class="thread-list"></div>
+
+        <!-- Yorumlar (Başlangıçta Gizli) -->
+        <div id="comment-section" class="comment-section hidden">
+            <h3 id="thread-title"></h3>
+            <p id="thread-description"></p>
+            <div id="comments"></div>
+
+            <form id="comment-form">
+                <textarea id="comment" placeholder="Yorumunuzu yazın" required></textarea>
+                <input type="email" id="comment-email" placeholder="E-posta" required>
+                <button type="submit">Yorum Ekle</button>
+            </form>
+            <button type="button" onclick="backToThreads()">Geri Dön</button>
+        </div>
+    </div>
+
+    <!-- Sağ Sütun: Yeni Konu Açma Formu -->
+    <div class="right-section">
+        <div id="form-container" class="form-container">
+            <h3>Yeni Konu Aç</h3>
+            <form id="thread-form">
+                <input type="text" id="title" placeholder="Başlık" required>
+                <textarea id="description" placeholder="Açıklama" required></textarea>
+                <input type="email" id="email" placeholder="E-posta" required>
+                <button type="submit">Başlık Oluştur</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="script.js"></script>
+<script type="module" src="firebase.js"></script>
+<script type="module" src="community.js"></script>
+
+
+</body>
+</html>

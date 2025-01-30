@@ -1,0 +1,184 @@
+/* Genel Stil */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 10;
+    color: #333;
+}
+
+/* Üst Section (Sayfa Yolu) */
+
+.header {
+    display: flex;
+    max-width: 1100px;
+    margin: 10px auto;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0 0 8px 8px;
+}
+
+
+.breadcrumb {
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Ana İçerik Alanı */
+.container {
+    display: flex;
+    max-width: 1100px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Sol Sütun (Yeni Konu Aç) */
+.left-section {
+    width: 70%;
+    padding: 25px;
+    background: #f9f9f9;
+    border-right: 2px solid #ddd;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Sağ Sütun (Forum Başlıkları) */
+.right-section {
+    width: 30%;
+    padding: 25px;
+    background: white;
+    border-radius: 0 10px 10px 0;
+}
+
+/* Sayfa Başlığı */
+.page-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #137661;
+}
+
+/* Form ve Yorum Bölümleri */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 25px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #137661;
+    box-shadow: 0 0 6px rgba(13, 147, 103, 0.3);
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background-color: #137661;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #137661;
+    transform: scale(1.02);
+}
+
+/* Forum Başlıkları */
+.thread-list {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thread-box {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    border-left: 4px solid #137661;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.thread-box h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #137661;
+}
+
+.thread-box p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+.thread-box:hover {
+    background: #e9f5ff;
+    transform: translateX(5px);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-section, .right-section {
+        width: 100%;
+        border-radius: 10px;
+        border-right: none;
+    }
+}
+
+/* Fade-in Animasyon */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Yorumları gizle/göster */
+.comment-section {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Konu Listesi Gizleme */
+.hidden {
+    display: none;
+}
