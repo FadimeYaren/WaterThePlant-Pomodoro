@@ -10,7 +10,7 @@ document.getElementById("thread-form").addEventListener("submit", async (e) => {
     const email = document.getElementById("email").value.trim();
 
     if (title === "" || description === "" || email === "") {
-        alert("Lütfen tüm alanları doldurun!");
+        console.warn("UYARI: Lütfen tüm alanları doldurun!");
         return;
     }
 
@@ -25,7 +25,7 @@ document.getElementById("thread-form").addEventListener("submit", async (e) => {
         });
 
         console.log("Başlık eklendi, ID:", newThreadRef.id);
-        alert("Başlık başarıyla eklendi!");
+        console.log("Başlık başarıyla eklendi.");
         document.getElementById("thread-form").reset();
     } catch (error) {
         console.error("Firestore'a eklenirken hata oluştu:", error);
@@ -52,48 +52,103 @@ onSnapshot(collection(db, "forum-documents"), (snapshot) => {
 
 // 📌 Yorumları gösterme fonksiyonu (Artık sol sütunda)
 window.showComments = async function(threadId, title, description) {
-    document.getElementById("threads").style.display = "none"; // Konu listesini gizle
-    document.getElementById("comment-section").style.display = "block";
+    console.log("Konu açıldı:", title);
+
+    document.getElementById("threads").style.display = "none"; 
+    document.getElementById("comment-section").style.display = "block"; 
 
     document.getElementById("thread-title").textContent = title;
     document.getElementById("thread-description").textContent = description;
 
-    document.getElementById("current-thread").textContent = title; // Breadcrumb güncelle
+    document.getElementById("breadcrumb-arrow").style.display = "inline"; 
+    document.getElementById("current-thread").textContent = title; 
 
     const commentsContainer = document.getElementById("comments");
-    commentsContainer.innerHTML = "";
+    commentsContainer.innerHTML = ""; 
 
-    const commentsSnapshot = await getDocs(collection(db, `forum-documents/${threadId}/comments`));
-    commentsSnapshot.forEach((doc) => {
-        const comment = doc.data();
-        const commentDiv = document.createElement("div");
-        commentDiv.className = "comment-box";
-        commentDiv.innerHTML = `<p>${comment.message}</p><small>${comment.username} (${comment.user_email})</small>`;
-        commentsContainer.appendChild(commentDiv);
-    });
+    try {
+        const commentsSnapshot = await getDocs(collection(db, `forum-documents/${threadId}/comments`));
+        if (!commentsSnapshot.empty) {
+            commentsSnapshot.forEach((doc) => {
+                const comment = doc.data();
+                const commentDiv = document.createElement("div");
+                commentDiv.className = "comment-box";
+                commentDiv.innerHTML = `<p>${comment.message}</p><small>${comment.username} (${comment.user_email})</small>`;
+                commentsContainer.appendChild(commentDiv);
+            });
+        } else {
+            commentsContainer.innerHTML = "<p>Henüz yorum yok. İlk yorumu ekleyin!</p>";
+        }
+    } catch (error) {
+        console.error("Yorumlar yüklenirken hata oluştu:", error);
+        commentsContainer.innerHTML = "<p>Yorumlar yüklenemedi.</p>";
+    }
 
-    // 📌 Yorum ekleme formunu bağla
-    document.getElementById("comment-form").onsubmit = async (e) => {
-        e.preventDefault();
-        const commentText = document.getElementById("comment").value;
-        const commentEmail = document.getElementById("comment-email").value;
+    document.getElementById("thread-form-container").classList.add("hidden");
+    document.getElementById("comment-form-container").classList.remove("hidden");
 
+    document.getElementById("comment-section").classList.remove("hidden");
+    document.getElementById("comment-form").dataset.threadId = threadId;
+};
+
+// 📌 Yorum ekleme fonksiyonu (Alert kaldırıldı, Console mesajı eklendi)
+document.getElementById("comment-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const commentText = document.getElementById("comment").value.trim();
+    const commentEmail = document.getElementById("comment-email").value.trim();
+    const threadTitle = document.getElementById("thread-title").textContent; 
+    let threadId = null;
+
+    if (commentText === "" || commentEmail === "") {
+        console.warn("UYARI: Lütfen tüm alanları doldurun!");
+        return;
+    }
+
+    console.log("Yorum ekleniyor:", { threadTitle, commentText, commentEmail });
+
+    try {
+        // 📌 Konunun Firestore ID'sini bul
+        const querySnapshot = await getDocs(collection(db, "forum-documents"));
+        querySnapshot.forEach((doc) => {
+            if (doc.data().title === threadTitle) {
+                threadId = doc.id;
+            }
+        });
+
+        if (!threadId) {
+            console.error("Hata: Konu ID'si bulunamadı!");
+            return;
+        }
+
+        // 📌 Firestore'a yorum ekleme işlemi
         await addDoc(collection(db, `forum-documents/${threadId}/comments`), {
             user_email: commentEmail,
-            username: commentEmail.split("@")[0], // Kullanıcı ismini e-posta ön ekinden al
+            username: commentEmail.split("@")[0], 
             message: commentText,
             timestamp: Date.now()
         });
 
-        alert("Yorum eklendi!");
-        document.getElementById("comment-form").reset();
-        showComments(threadId, title, description); // Sayfayı güncelle
-    };
-};
+        console.log("Yorum başarıyla eklendi:", { threadId, commentText, commentEmail });
+        document.getElementById("comment-form").reset(); 
 
-// 📌 Geri dönme fonksiyonu (Yorumları kapatınca konu listesini geri getir)
+        // 📌 Yorum ekledikten sonra sayfayı güncelle
+        showComments(threadId, document.getElementById("thread-title").textContent, document.getElementById("thread-description").textContent);
+    } catch (error) {
+        console.error("Yorum eklerken hata oluştu:", error);
+    }
+});
+
+// 📌 Geri dönme fonksiyonu (Alert kaldırıldı, Console mesajı eklendi)
 window.backToThreads = function() {
+    console.log("Geri dön butonuna basıldı.");
+
     document.getElementById("comment-section").style.display = "none";
-    document.getElementById("threads").style.display = "block"; // Konu listesini geri getir
-    document.getElementById("current-thread").textContent = "Ana Sayfa"; // Breadcrumb sıfırla
+    document.getElementById("threads").style.display = "block";
+
+    document.getElementById("breadcrumb-arrow").style.display = "none";
+    document.getElementById("current-thread").textContent = "";
+
+    document.getElementById("comment-form-container").classList.add("hidden");
+    document.getElementById("thread-form-container").classList.remove("hidden");
 };

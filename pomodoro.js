@@ -1,4 +1,3 @@
-
 // Background - shooting stars
 const stars = document.querySelectorAll('.shooting_star');
 
@@ -17,8 +16,6 @@ stars.forEach(star => {
 
 
 // PANELS
-
-
 
 
 function activatePanel(panelId) {

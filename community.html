@@ -56,16 +56,18 @@
 <!-- Üst Kısım (Sayfa Yolu - Breadcrumb) -->
 <div class="header">
     <span class="breadcrumb">
-        <a href="community.html">Forum</a> → <span id="current-thread">Ana Sayfa</span>
+        <a href="community.html">Forum</a>
+        <span id="breadcrumb-arrow" style="display: none;">&nbsp;→&nbsp;</span>
+        <span id="current-thread"></span>
     </span>
 </div>
+
 
 <!-- Alt Kısım (Ana İçerik - 2 Sütun) -->
 <div class="container">
 
     <!-- Sol Sütun: Forum Konuları / Yorumlar -->
     <div class="left-section">
-        <h3>Forum Konuları</h3>
         <div id="threads" class="thread-list"></div>
 
         <!-- Yorumlar (Başlangıçta Gizli) -->
@@ -73,28 +75,37 @@
             <h3 id="thread-title"></h3>
             <p id="thread-description"></p>
             <div id="comments"></div>
-
-            <form id="comment-form">
-                <textarea id="comment" placeholder="Yorumunuzu yazın" required></textarea>
-                <input type="email" id="comment-email" placeholder="E-posta" required>
-                <button type="submit">Yorum Ekle</button>
-            </form>
-            <button type="button" onclick="backToThreads()">Geri Dön</button>
         </div>
     </div>
 
-    <!-- Sağ Sütun: Yeni Konu Açma Formu -->
-    <div class="right-section">
-        <div id="form-container" class="form-container">
-            <h3>Yeni Konu Aç</h3>
-            <form id="thread-form">
-                <input type="text" id="title" placeholder="Başlık" required>
-                <textarea id="description" placeholder="Açıklama" required></textarea>
-                <input type="email" id="email" placeholder="E-posta" required>
+    <!-- Sağ Sütun: Başlık Oluştur / Yorum Yap -->
+<div class="right-section">
+    <!-- Başlık oluşturma formu (Varsayılan olarak gösterilecek) -->
+    <div id="thread-form-container" class="form-container">
+        <h3>Yeni Konu Aç</h3>
+        <form id="thread-form">
+            <input type="text" id="title" placeholder="Başlık" required>
+            <textarea id="description" placeholder="Açıklama" required></textarea>
+            <input type="email" id="email" placeholder="E-posta" required>
+            <div class="button-container">
                 <button type="submit">Başlık Oluştur</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+
+    <!-- Yorum yapma formu (Başlangıçta gizli) -->
+    <div id="comment-form-container" class="form-container hidden">
+        <h3>Yorum Yap</h3>
+        <form id="comment-form">
+            <textarea id="comment" placeholder="Yorumunuzu yazın" required></textarea>
+            <input type="email" id="comment-email" placeholder="E-posta" required>
+            <div class="button-container">
+                <button type="submit">Yorum Ekle</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 </div>
 
 
